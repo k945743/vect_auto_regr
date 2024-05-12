@@ -1,3 +1,5 @@
+import numpy as np
+
 class VectAutoReg:
     def __init__(self, coeffs, bias=None, init=None):
         self.coeffs = coeffs
@@ -44,14 +46,19 @@ class VectAutoReg:
     def stability_companion(coeffs):
         d = len(coeffs[0])
         p = len(coeffs)
-        first_column = [np.eye(d)]
-        for i in range(1, p):
-            first_column.append(np.zeros((d, d)))
-        first_column = np.concatenate(first_column, axis=0)
 
-        companion_matrix = np.zeros((d * p, d * p))
-        companion_matrix[:d, :] = np.hstack(coeffs)
-        companion_matrix[d:, :d*(p-1)] = first_column[:-d]
+        if p == 1:
+            companion_matrix = coeffs[0]
+        else:
+            first_column = [np.eye(d)]
+            for i in range(1, p):
+                first_column.append(np.zeros((d, d)))
+            first_column = np.concatenate(first_column, axis=0)
+
+            companion_matrix = np.zeros((d * p, d * p))
+            companion_matrix[:d, :] = np.hstack(coeffs)
+            companion_matrix[d:, :d*(p-1)] = first_column[:-d]
+
         return companion_matrix
 
     @staticmethod
