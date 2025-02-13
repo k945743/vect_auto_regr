@@ -1,5 +1,7 @@
-dest_folder: /path/to/destination/folder
+dest_folder: /Users/lorantnagy/Documents/DATA/VAR
 sample_count: 10
+trajectory_length: 100
+
 COEFFS:
   A1:
       - [0.5, 0.1, 0.2]
